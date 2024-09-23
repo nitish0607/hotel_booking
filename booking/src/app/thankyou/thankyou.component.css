@@ -1,0 +1,25 @@
+/* Center the alert box */
+.alert-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* Icon size */
+.icon-check {
+    width: 60px;
+    height: 60px;
+}
+
+/* Button styling */
+.btn-custom {
+    width: 100px;
+    padding: 10px;
+    font-weight: bold;
+}

@@ -1,0 +1,27 @@
+ .property-photos {
+     display: flex;
+     justify-content: space-between;
+ }
+
+ .property-photos img {
+     width: 32%;
+     border-radius: 10px;
+ }
+
+ .property-photos .main-photo img {
+     width: 100%;
+     height: auto;
+     border-radius: 10px;
+ }
+
+ .price-section {
+     font-size: 1.5rem;
+     color: #1a73e8;
+     font-weight: bold;
+ }
+
+ .original-price {
+     text-decoration: line-through;
+     font-size: 1rem;
+     color: #999;
+ }

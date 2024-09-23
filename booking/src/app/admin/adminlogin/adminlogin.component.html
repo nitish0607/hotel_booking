@@ -1,0 +1,42 @@
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row w-100">
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4 text-primary">Login</h3>
+                        <div [formGroup]="adminform">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                                    required formControlName="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password"
+                                    placeholder="Enter your password" required formControlName="password">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-block" (click)="login()">Login</button>
+                            </div>
+                            <p class="text-center mt-3">
+
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--- Success Alert -->
+
+
+    <div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show position-fixed small-alert"
+        role="alert" id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050;">
+        <strong>Success!</strong> Successfully Logged In.......
+        <button type="button" class="close small-close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>

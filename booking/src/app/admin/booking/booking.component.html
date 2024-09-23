@@ -1,0 +1,48 @@
+<h2 class="text-center mb-4 text-dark font-weight-bold">Bookings Record</h2>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>Adults</th>
+                <th>Booking ID</th>
+                <th>Booking Status</th>
+                <th>Check-in Date</th>
+                <th>Check-out Date</th>
+                <th>Children</th>
+                <th>Guest Details</th>
+                <th>Hotel ID</th>
+                <th>Room ID</th>
+                <th>Total Price</th>
+                <th>User ID</th>
+                <th>PaymentMode</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <td>{{item.adults}}</td>
+                <td>{{item.booking_id}}</td>
+                <td>
+                    <span [ngClass]="{
+                        'badge badge-success': item.booking_status === 'Confirmed',
+                        'badge badge-warning': item.booking_status === 'Pending',
+                        'badge badge-danger': item.booking_status === 'Cancelled'
+                    }">
+                        {{item.booking_status}}
+                    </span>
+                </td>
+                <td>{{item.check_in_date | date:'mediumDate'}}</td>
+                <td>{{item.check_out_date | date:'mediumDate'}}</td>
+                <td>{{item.children}}</td>
+                <td>{{item.guest_details.name}}, {{item.guest_details.email}} , {{item.guest_details.phone_number}} ,
+                    {{item.guest_details.payment_mode}}
+                </td>
+                <td>{{item.hotel_id}}</td>
+                <td>{{item.room_id}}</td>
+                <td>{{item.total_price | currency}}</td>
+                <td>{{item.user_id}}</td>
+                <td>{{item.payment_mode}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,54 @@
+.card {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Semi-transparent background for card */
+}
+
+.btn-small {
+    padding: 0.375rem 0.75rem;
+    /* Smaller padding for a smaller button */
+    font-size: 0.875rem;
+    /* Slightly smaller text */
+}
+
+.btn-custom {
+    background-color: #007bff;
+    /* Custom background color */
+    color: #fff;
+    /* White text color */
+    border: none;
+    /* Remove border */
+    border-radius: 0.25rem;
+    /* Rounded corners */
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+    color: #fff;
+    /* Ensure text remains white */
+}
+
+/*-----------
+ /* styles.css or component-specific CSS */
+.card {
+    border-radius: 10px;
+    /* Rounded corners for the card */
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+.modal-content {
+    border-radius: 10px;
+    /* Rounded corners for the modal */
+}

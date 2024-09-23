@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background: linear-gradient(135deg, #d7e1ec 0%, #b4c9d7 100%);
+    background-blend-mode: normal, color-burn;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+
+}

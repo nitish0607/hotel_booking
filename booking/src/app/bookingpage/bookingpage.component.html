@@ -1,0 +1,175 @@
+<div class="container mt-4">
+    <!-- <h2 class="text-center mb-4 text-white font-weight-bold custom-text-shadow">Hotel Booking</h2> -->
+
+    <div class="card p-4 shadow-lg border-light">
+        <div class="row">
+            <!-- Check-in Date -->
+            <div class="form-group col-md-4">
+                <label for="checkinDate" class="font-weight-semibold">Check-In Date</label>
+                <input type="date" id="checkinDate" class="form-control border-primary" [(ngModel)]="date1">
+            </div>
+            <!-- Check-out Date -->
+            <div class="form-group col-md-4">
+                <label for="checkoutDate" class="font-weight-semibold">Check-Out Date</label>
+                <input type="date" id="checkoutDate" [min]="date1" class="form-control border-primary"
+                    [(ngModel)]="date2">
+            </div>
+            <!-- Rooms & Guests Modal Trigger -->
+            <div class="form-group col-md-4">
+                <label for="roomsGuests" class="font-weight-semibold">Rooms & Guests</label>
+                <button type="button" class="btn btn-outline-danger btn-lg form-control" data-toggle="modal"
+                    data-target="#roomsGuestsModal">
+                    <i class="fas fa-users"></i> Select Rooms & Guests
+                </button>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-danger text-white btn-lg px-4 py-2 rounded-pill shadow-sm"
+                (click)="getdate()">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Rooms & Guests Modal -->
+<div class="modal fade" id="roomsGuestsModal" tabindex="-1" role="dialog" aria-labelledby="roomsGuestsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roomsGuestsModalLabel">Select Rooms & Guests</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rooms">Rooms</label>
+                    <select class="form-control" [(ngModel)]="selectedRoom" (change)="onSelectionroomChange()">
+                        <option value="" [selected]="true" [hidden]="true">--Please choose Room--</option>
+                        <option value="1">1 Room</option>
+                        <option value="2">2 Rooms</option>
+                        <option value="3">3 Rooms</option>
+                        <option value="4">4 Rooms</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="adults">Adults</label>
+                    <select class="form-control" [(ngModel)]="selectedAdults" (change)="onSelectionadultChange()">
+                        <option value="">--Please choose Adult--</option>
+                        <option value="1">1 Adult</option>
+                        <option value="2">2 Adults</option>
+                        <option value="3">3 Adults</option>
+                        <option value="4">4 Adults</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="children">Children</label>
+                    <select class="form-control" [(ngModel)]="selectedChildren" (change)="onSelectionchildrenChange()">
+                        <option value="">--Please choose Children--</option>
+                        <option value="0">0 Children</option>
+                        <option value="1">1 Child</option>
+                        <option value="2">2 Children</option>
+                        <option value="3">3 Children</option>
+                        <option value="4">4 Children</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--SHOWING AVAILABLE DATA IN A cards-->
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Filter Section -->
+        <ng-container *ngIf="myavlpropertydata.length>0">
+            <div class="col-sm-2">
+                <div class="bg-light p-3 rounded shadow-sm">
+                    <h5 class="mb-3">Filters</h5>
+
+                    <!-- Price Range -->
+                    <div class="mb-3">
+                        <label for="priceRange" class="form-label">Price Range</label>
+                        <input type="range" class="form-range" id="priceRange" min="0" max="5000" step="100" />
+                        <div class="d-flex justify-content-between">
+                            <span>₹0</span>
+                            <span>₹5000</span>
+                        </div>
+                    </div>
+
+                    <!-- Room Type -->
+                    <div class="mb-3">
+                        <label for="roomType" class="form-label">Room Type</label>
+                        <select class="form-select" id="roomType">
+                            <option selected>All</option>
+                            <option value="1">Single</option>
+                            <option value="2">Double</option>
+                            <option value="3">Suite</option>
+                        </select>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="mb-3">
+                        <label class="form-label">Amenities</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="wifi">
+                            <label class="form-check-label" for="wifi">WiFi</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="parking">
+                            <label class="form-check-label" for="parking">Parking</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="pool">
+                            <label class="form-check-label" for="pool">Pool</label>
+                        </div>
+                    </div>
+
+                    <!-- Apply Button -->
+                    <button class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Hotel Info Section -->
+        <div class="col-sm-10">
+            <div class="row bg-white border rounded p-3 shadow-sm mb-4" *ngFor="let hotel of myavlpropertydata">
+                <!-- Image Section -->
+                <div class="col-md-4">
+                    <img src="https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        class="img-fluid rounded" alt="Hotel Image" style="max-height: 180px; object-fit: cover;">
+                </div>
+                <!-- Details Section -->
+                <div class="col-md-5 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="fw-bold fs-4 mb-2">{{ hotel.hotel_name }}</h5>
+                        <p class="text-muted mb-0">{{ hotel.room_type }} | {{ hotel.available_rooms }} Rooms Available
+                        </p>
+                    </div>
+                </div>
+                <!-- Button and Price Section -->
+                <div class="col-md-3 d-flex flex-column justify-content-between align-items-end text-end">
+                    <div>
+                        <h5 class="text-success fw-bold fs-3 mb-1">₹{{ hotel.price_per_night }}</h5>
+                        <small class="text-muted fs-6">Per Night</small>
+                    </div>
+                    <button [routerLink]="['book',hotel.hotel_id]" class="btn btn-primary mt-3">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<router-outlet></router-outlet>

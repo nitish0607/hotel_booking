@@ -1,0 +1,91 @@
+<!-- Beautiful Login Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light btn-danger mt-0">
+    <div class="container-fluid">
+        <!-- Toggler button for mobile view -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <!-- Navbar Brand -->
+            <a class="navbar-brand text-white" href="#">HotelBooking</a>
+
+            <!-- Navbar Links -->
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Contact</a>
+                </li>
+            </ul>
+            <!-- Login Button -->
+            <div class="container-fluid mt-2" *ngIf="!isLoggedIn">
+                <div class="row">
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-danger btn-sm  rounded-pill"
+                            (click)="showModal = true;">LOGIN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal Section -->
+<div id="myModal" class="modal" *ngIf="showModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="main">
+                <div class="close p-2 m-1" (click)="closeModal()">X</div>
+                <input type="checkbox" id="chk" aria-hidden="true">
+
+                <div class="signup">
+                    <div [formGroup]="signupdata">
+                        <label for="chk" aria-hidden="true">Sign up</label>
+                        <input type="text" placeholder="Name" formControlName="name">
+                        <input type="email" placeholder="Email" formControlName="email">
+                        <input type="password" placeholder="Password" formControlName="password">
+                        <input type="number" placeholder="Mobile Number" formControlName="phone_number">
+                        <button type="button" [disabled]="loader" class="navbtn" (click)="getsignupdata()">Sign
+                            up</button>
+                        <div class="text-center">
+                            <div class="spinner-border text-primary text-center" *ngIf="loader"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login">
+                    <div [formGroup]="logindata">
+                        <label for="chk" aria-hidden="true">Login</label>
+                        <input type="email" name="email" placeholder="Email" formControlName="email">
+                        <input type="password" name="pswd" placeholder="Password" formControlName="password">
+                        <button type="button" [disabled]="loader" class="navbtn" (click)="getLogin()">Login</button>
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" *ngIf="loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--- Success Alert -->
+
+
+<div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show position-fixed small-alert"
+    role="alert" id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050;">
+    <strong>Success!</strong> {{this.responsealertMsg}}
+</div>
+
+
+<div *ngIf="offAlert" class="alert alert-dismissible fade show position-fixed small-alert" role="alert"
+    id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050; background-color: red; color: white;">
+    <strong>Alert!</strong> {{this.responsealertMsg}}
+</div>

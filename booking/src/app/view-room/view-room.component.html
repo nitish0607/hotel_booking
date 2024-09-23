@@ -1,0 +1,171 @@
+<div class="container my-4">
+    <div class="row" *ngFor="let roomdata of data">
+        <!-- Hotel Info Section -->
+        <div class="col-lg-8">
+            <div class="booking-summary">
+                <h5 class="highlight-text">{{roomdata.hotel_name}} | {{roomdata.room_type}}
+                    <span class="badge bg-primary ms-2">Villa</span>
+                </h5>
+                <p>Behind Romano Chambers, F-Block, Porba Vaddo, Calangute, Near Hotel Horizon, North Goa, Goa, India
+                </p>
+
+                <div class="d-flex justify-content-between border-top pt-2 mt-2">
+                    <div>
+                        <p class="highlight-text">Check In</p>
+                        <p>{{roomparsedata.checkIn}}</p>
+                    </div>
+                    <div>
+                        <p class="highlight-text">Check Out</p>
+                        <p>{{roomparsedata.checkOut}}</p>
+                    </div>
+                    <div>
+                        <p class="highlight-text">{{roomparsedata.numberOfDays}} Nights |
+                            {{roomparsedata.numberofAdult}} Adult | {{roomparsedata.numberofRoom}} Room</p>
+                    </div>
+                </div>
+
+                <h6 class="mt-4">Non AC Room</h6>
+                <ul>
+                    <li>{{roomparsedata.numberofAdult}} Adult</li>
+                    <li>Room Only</li>
+                    <li>No meals included</li>
+                </ul>
+
+                <p class="refundable-text">Non-Refundable | Refund is not applicable for this booking</p>
+
+            </div>
+        </div>
+
+        <!-- Price Summary Section -->
+        <div class="col-lg-4">
+            <div class="price-summary">
+                <h6 class="highlight-text">Price Breakup</h6>
+                <div class="price-breakup">
+                    <ul>
+                        <li>{{roomparsedata.numberofRoom}} Room x {{roomparsedata.numberOfDays}} Nights <span>₹
+                                {{roomdata.price_per_night * roomparsedata.numberOfDays }}</span></li>
+                        <li>Total Discount <span class="text-success">₹ 0.00</span></li>
+                        <li>Price after Discount <span>₹ 0.00</span></li>
+                        <li>Taxes & Service Fees <span>₹ 0.00</span></li>
+                    </ul>
+                </div>
+
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" value="" id="donateCheck">
+                    <label class="form-check-label" for="donateCheck">
+                        Donate ₹ 5 to build resilient travel destinations. <a href="#"
+                            class="text-decoration-underline">T&Cs</a>
+                    </label>
+                </div>
+
+                <div class="d-flex justify-content-between total-amount mt-3">
+                    <span>Total Amount to be paid</span>
+                    <span>₹ {{roomdata.price_per_night * roomparsedata.numberOfDays }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD GUEST DETAIL IN USER TABLE  -->
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-sm-8 bg-white guestclass py-3">
+            <div class="form-container">
+                <h5 class="card-title py-4">Guest Details</h5>
+                <div [formGroup]="guestLogindata">
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name"
+                            formControlName="name">
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                            formControlName="email">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password"
+                            formControlName="password">
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
+                            formControlName="phone_number">
+                    </div>
+
+                    <!-- Payment Mode Section -->
+                    <div class="mb-3">Payment Mode
+                        <label for="paymentMode" class="form-label">Payment Method</label>
+                        <select class="form-control" id="paymentMode" formControlName="payment_mode">
+                            <option value="" [selected]="true" [hidden]="true">Select Payment Mode</option>
+                            <option value="credit/debit">Credit/Debit Card</option>
+                            <option value="upi">UPI</option>
+                            <option value="netbanking">Net Banking</option>
+                            <option value="cash">Cash on Arrival</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-danger" [disabled]="!isLoggedIn"
+                        (click)="createReservation()">Create Reservation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Login With Modal---->
+
+<!--success Thank you alert---->
+
+<div class="alert alert-success alert-center" *ngIf="thankyouAlert">
+    <div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill icon-check mb-3"
+            viewBox="0 0 16 16">
+            <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 11.03a.75.75 0 0 0 1.08-.02L10.8 8.21a.75.75 0 1 0-1.08-1.04L7.5 9.293 6.25 8.04a.75.75 0 0 0-1.06 1.06l1.78 1.93z" />
+        </svg>
+    </div>
+    <h5 class="font-weight-bold">Reservation Created!</h5>
+    <p class="mb-3">Your reservation has been successfully created.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--- Success Alert -->
+
+
+<div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show position-fixed small-alert"
+    role="alert" id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050;">
+    <strong>Success!</strong> {{this.responsemsg}}
+</div>
+
+
+
+<!--- Red Alert -->
+
+
+<div *ngIf="offAlert" class="alert alert-dismissible fade show position-fixed small-alert" role="alert"
+    id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050; background-color: red; color: white;">
+    <strong>Alert!</strong> {{this.responsemsg}}
+</div>

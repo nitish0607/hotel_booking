@@ -1,0 +1,94 @@
+<div class="container mt-3">
+    <div class="card p-4" *ngFor="let hotel of data">
+        <div class="row">
+            <!-- Left Section Only Image text -->
+            <div class="col-md-8">
+                <h4>{{ hotel.hotel_name }}</h4>
+
+                <div class="room-details mb-5">
+                    <h5 class="text-primary">Room Name - {{hotel.room[0].room_type}}</h5>
+                    <hr />
+                    <!-- Added mb-5 for spacing between rooms -->
+                    <div class=" row mt-4">
+                        <div class="col-md-8">
+                            <img src="https://c4.wallpaperflare.com/wallpaper/787/399/647/life-resort-travel-vacation-wallpaper-preview.jpg"
+                                class="img-fluid rounded" alt="Main Photo">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="https://c4.wallpaperflare.com/wallpaper/524/228/970/life-interior-home-room-wallpaper-preview.jpg"
+                                class="img-fluid rounded mb-2" alt="Living Room Photos">
+                            <img src="https://c4.wallpaperflare.com/wallpaper/74/457/102/life-room-interior-home-wallpaper-preview.jpg"
+                                class="img-fluid rounded" alt="Guest Photos">
+                        </div>
+                    </div>
+                    <p class="mt-3">{{hotel.room[0].room_type }} with balcony sit-outs, Wi-Fi & beach access</p>
+                    <p>{{ hotel.room[0].price_per_night }} per night • Available Rooms: {{ hotel.room[0].available_rooms
+                        }}</p>
+                </div>
+            </div>
+
+            <!-- Right Section box -->
+            <div class="col-md-4">
+                <div class="room-details mb-4">
+
+                    <div class="border p-3 rounded mb-4">
+                        <h5>{{ hotel.room[0].available_rooms }} Rooms Available</h5>
+                        <p>Fits 2 Adults</p>
+                        <p class="text-muted"><s>₹ 1,000</s> Per Night</p>
+                        <p class="h4 text-primary">₹ {{ hotel.room[0].price_per_night }}</p>
+                        <p class="text-muted">+ ₹ 484 taxes & fees</p>
+                        <button class="btn btn-primary btn-block mb-2">VIEW THIS COMBO</button>
+                        <button class="btn btn-outline-primary btn-block">OTHER ROOMS</button>
+                    </div>
+                </div>
+                <div class="border p-3 rounded">
+                    <p><strong>4.6 Excellent</strong> (130 ratings)</p>
+                    <p class="text-muted">94% guests rated this property 4 and above</p>
+                    <p><i class="fa fa-map-marker-alt"></i> Calangute</p>
+                    <p class="text-muted">10 minutes walk to Calangute Beach</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4" *ngFor="let room of hotel.room">
+            <div class="col-sm-8">
+                <div class="p-3 border rounded">
+                    <h5 class="text-primary">Room Name - {{ room.room_type }}</h5>
+                    <hr />
+                    <!-- Room images -->
+                    <div class="row mt-3">
+                        <div class="col-md-8">
+                            <img src="https://c4.wallpaperflare.com/wallpaper/787/399/647/life-resort-travel-vacation-wallpaper-preview.jpg"
+                                class="img-fluid rounded mb-2" alt="Main Photo">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="https://c4.wallpaperflare.com/wallpaper/524/228/970/life-interior-home-room-wallpaper-preview.jpg"
+                                class="img-fluid rounded mb-2" alt="Living Room Photos">
+                            <img src="https://c4.wallpaperflare.com/wallpaper/74/457/102/life-room-interior-home-wallpaper-preview.jpg"
+                                class="img-fluid rounded" alt="Guest Photos">
+                        </div>
+                    </div>
+                    <p class="mt-2">{{ room.room_type }} with balcony, Wi-Fi & beach access</p>
+                </div>
+            </div>
+
+            <!-- Price per night -->
+            <div class="col-sm-2 text-center d-flex flex-column justify-content-center">
+                <div class="p-2 border rounded">
+                    <strong class="text-primary">₹{{ room.price_per_night}}</strong>
+                    <p class="m-0">Per Night</p>
+                    <p>Available: {{ room.available_rooms }}</p>
+                </div>
+            </div>
+
+            <!-- Add Room button -->
+            <div class="col-sm-2 text-center d-flex flex-column justify-content-center">
+                <button [routerLink]="['/viewroom',room.room_id]" class="btn btn-primary btn-sm mt-3 px-4"
+                    (click)="addRoom(room)">Add
+                    Room</button>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
