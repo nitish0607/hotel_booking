@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ApplicationService } from '../application.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,15 +29,20 @@ export class ViewRoomComponent {
   responsemsg: any;
   payment: any;
   thankyouAlert: boolean = false;
-
+  discountPrice: any = {};
+  priceAfterDiscount: any = 0;
+  hasDiscount: boolean = false;
+  onlyroomprice: any;
+  withoutDiscountroomPrice: any;
+  roomtotalpricewithgstOnly: any;
 
   constructor(private route: ActivatedRoute, private service: ApplicationService, private _form: FormBuilder, private _routes: Router) {
     this.guestLogindata = this._form.group({
-      name: [],
-      email: [],
-      password: [],
-      phone_number: [],
-      payment_mode: []
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      phone_number: ['', Validators.required],
+      payment_mode: ['', Validators.required]
     })
 
     this.signupdata = this._form.group({
@@ -64,12 +69,51 @@ export class ViewRoomComponent {
 
     this.isLoggedIn = JSON.parse(<any>localStorage.getItem("isLoggedIn"));
 
-    this.userId = JSON.parse(<any>localStorage.getItem("userId"))
-
+    this.userId = JSON.parse(<any>localStorage.getItem("userId"));
 
 
 
   }
+
+
+  // Method to check if a field is invalid and touched
+  isFieldInvalid(field: string): boolean {
+    const control = this.guestLogindata.get(field);
+    return control && control.invalid && (control.dirty || control.touched);
+  }
+
+
+
+
+  getdiscountprice() {
+    this.service.getdiscountprice(this.roomId, (response: any) => {
+      if (response.status == 200 && response.data.length > 0) {
+        this.discountPrice = response.data[0];
+        console.log(this.discountPrice, "DISCOUNT");
+        this.calculateTotalPrice();
+      } else {
+        this.calculateTotalPrice();
+      }
+    })
+  }
+
+  calculateTotalPrice() {
+    let priceAfterDisc: any = 0;
+    let gstPriceFixedPercentage = 5;
+    let priceAfterGst = 0;
+    if (this.discountPrice?.discount_percentage) {
+      this.priceAfterDiscount = (this.roomparsedata.numberOfDays * this.data[0].price_per_night) - ((this.roomparsedata.numberOfDays * this.data[0].price_per_night) * (this.discountPrice.discount_percentage / 100));
+    } else {
+      this.priceAfterDiscount = this.roomparsedata.numberOfDays * this.data[0].price_per_night;
+    }
+    priceAfterGst = this.priceAfterDiscount + (this.priceAfterDiscount * (gstPriceFixedPercentage / 100));
+    this.total_price = priceAfterGst;
+
+
+  }
+
+
+
 
   getroomData() {
     this.route.paramMap.subscribe((params: any) => {
@@ -77,7 +121,7 @@ export class ViewRoomComponent {
       this.service.fethchRoomDataOnId(this.roomId, (callback: any) => {
         if (callback.status == 200 && callback.data.length > 0) {
           this.data = callback.data;
-          console.log(this.data, "data viewroom");
+          this.getdiscountprice();
         }
 
       })

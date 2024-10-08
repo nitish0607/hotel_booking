@@ -1,0 +1,128 @@
+<app-hotelnavbar></app-hotelnavbar>
+<div class="container mt-5">
+    <!-- Back Button -->
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="backtotable()">Back</button>
+
+    </div>
+
+    <!-- Add Room Button -->
+    <div class="d-flex justify-content-start mb-1">
+        <button class="btn btn-success" (click)="toggleForm()">Add Rooms</button>
+
+    </div>
+
+    <div *ngIf="showForm" class="card shadow-sm p-4">
+        <h2 class="text-center mb-4">Add New Room</h2>
+        <div [formGroup]="roomformdata">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="room_type" class="form-label">Room Type</label>
+                    <input type="text" class="form-control" id="room_type" placeholder="Enter room type"
+                        formControlName="roomname">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="max_adults" class="form-label">Max Adults</label>
+                    <input type="number" class="form-control" id="max_adults" min="1" placeholder="Enter max adults"
+                        formControlName="adults">
+                </div>
+                <div class="col-md-4">
+                    <label for="max_children" class="form-label">Max Children</label>
+                    <input type="number" class="form-control" id="max_children" min="0" placeholder="Enter max children"
+                        formControlName="children">
+                </div>
+                <div class="col-md-4">
+                    <label for="price_per_night" class="form-label">Price Per Night</label>
+                    <input type="number" class="form-control" id="price_per_night" min="1"
+                        placeholder="Enter price per night" formControlName="price">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="availability_count" class="form-label">Availability Count</label>
+                    <input type="number" class="form-control" id="availability_count" min="1"
+                        placeholder="Enter availability count" formControlName="availabilitycount">
+                </div>
+                <div class="col-md-6">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" formControlName="roomimage">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5" (click)="createRooms()"
+                    [disabled]="roomformdata.invalid">Save</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--Hotel Table-->
+
+<div class="container mt-5" *ngIf="showhotelTable">
+    <h2 class="text-center mb-4">Room List</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Room Name</th>
+                    <th scope="col">Hotel ID</th>
+                    <th scope="col">Max Adults</th>
+                    <th scope="col">Max Children</th>
+                    <th scope="col">price_per_night</th>
+                    <th scope="col">Room Availability</th>
+                    <th scope="col">Room Image</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let room of roomsdata">
+                    <td>{{ room.room_type }}</td>
+                    <td>{{ room.hotel_id }}</td>
+                    <td>{{ room.max_adults }}</td>
+                    <td>{{ room.max_children }}</td>
+                    <td>{{ room.price_per_night }}</td>
+                    <td>{{ room.availability_count }}</td>
+                    <td>
+                        <img [src]="'http://localhost:3000'+ room.image" class="img-thumbnail"
+                            style="width: 200px; height: auto;">
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center mt-5">
+                            <button class="btn btn-warning btn-sm mx-2" (click)="updateRooms(room)">Edit</button>
+                            <button class="btn btn-danger btn-sm mx-2"
+                                (click)="deleteRooms(room.room_id)">Delete</button>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!--- Success Alert -->
+
+
+<div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show position-fixed small-alert"
+    role="alert" id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050;">
+    <strong>Success!</strong> {{this.responsemsg}}
+</div>
+
+
+
+<!--- Red Alert -->
+
+
+<div *ngIf="offAlert" class="alert alert-dismissible fade show position-fixed small-alert" role="alert"
+    id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050; background-color: red; color: white;">
+    <strong>Alert!</strong> {{this.responsemsg}}
+</div>

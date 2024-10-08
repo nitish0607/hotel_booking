@@ -44,23 +44,45 @@
                     <ul>
                         <li>{{roomparsedata.numberofRoom}} Room x {{roomparsedata.numberOfDays}} Nights <span>₹
                                 {{roomdata.price_per_night * roomparsedata.numberOfDays }}</span></li>
-                        <li>Total Discount <span class="text-success">₹ 0.00</span></li>
-                        <li>Price after Discount <span>₹ 0.00</span></li>
-                        <li>Taxes & Service Fees <span>₹ 0.00</span></li>
+                        <li *ngIf="discountPrice?.discount_percentage">Total Discount %<span
+                                class="text-success">{{discountPrice.discount_percentage}}%</span>
+                        </li>
+                        <li *ngIf="discountPrice?.discount_percentage">You Save
+                            <span>
+                                ₹ {{
+                                (roomdata.price_per_night * roomparsedata.numberOfDays)
+                                * (discountPrice.discount_percentage / 100)
+                                }}
+                            </span>
+
+                        </li>
+                        <li *ngIf="discountPrice?.discount_percentage">Price after Discount
+                            <span>
+                                ₹ {{priceAfterDiscount}}
+                            </span>
+
+                        </li>
+                        <li>GST (5%)
+                            <span>
+                                ₹ {{priceAfterDiscount * (5/100)}}
+                            </span>
+
+                        </li>
                     </ul>
                 </div>
 
-                <div class="form-check mt-3">
+
+                <!-- <div class="form-check mt-3">
                     <input class="form-check-input" type="checkbox" value="" id="donateCheck">
                     <label class="form-check-label" for="donateCheck">
                         Donate ₹ 5 to build resilient travel destinations. <a href="#"
                             class="text-decoration-underline">T&Cs</a>
                     </label>
-                </div>
+                </div> -->
 
                 <div class="d-flex justify-content-between total-amount mt-3">
                     <span>Total Amount to be paid</span>
-                    <span>₹ {{roomdata.price_per_night * roomparsedata.numberOfDays }}</span>
+                    <span>₹ {{total_price}}</span>
                 </div>
             </div>
         </div>
@@ -74,12 +96,14 @@
         <div class="col-sm-8 bg-white guestclass py-3">
             <div class="form-container">
                 <h5 class="card-title py-4">Guest Details</h5>
-                <div [formGroup]="guestLogindata">
+                <form [formGroup]="guestLogindata">
+
                     <!-- Full Name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>
                         <input type="text" class="form-control" id="name" placeholder="Enter your name"
                             formControlName="name">
+                        <div *ngIf="isFieldInvalid('name')" class="text-danger">Name is required.</div>
                     </div>
 
                     <!-- Email Address -->
@@ -87,6 +111,10 @@
                         <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter your email"
                             formControlName="email">
+                        <div *ngIf="isFieldInvalid('email')" class="text-danger">
+                            <span *ngIf="guestLogindata.get('email').errors?.required">Email is required.</span>
+                            <span *ngIf="guestLogindata.get('email').errors?.email">Enter a valid email address.</span>
+                        </div>
                     </div>
 
                     <!-- Password -->
@@ -94,6 +122,11 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Enter your password"
                             formControlName="password">
+                        <div *ngIf="isFieldInvalid('password')" class="text-danger">
+                            <span *ngIf="guestLogindata.get('password').errors?.required">Password is required.</span>
+                            <span *ngIf="guestLogindata.get('password').errors?.minlength">Password must be at least 6
+                                characters.</span>
+                        </div>
                     </div>
 
                     <!-- Phone Number -->
@@ -101,10 +134,16 @@
                         <label for="phone" class="form-label">Phone Number</label>
                         <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
                             formControlName="phone_number">
+                        <div *ngIf="isFieldInvalid('phone_number')" class="text-danger">
+                            <span *ngIf="guestLogindata.get('phone_number').errors?.required">Phone number is
+                                required.</span>
+                            <span *ngIf="guestLogindata.get('phone_number').errors?.pattern">Enter a valid 10-digit
+                                phone number.</span>
+                        </div>
                     </div>
 
-                    <!-- Payment Mode Section -->
-                    <div class="mb-3">Payment Mode
+                    <!-- Payment Mode -->
+                    <div class="mb-3">
                         <label for="paymentMode" class="form-label">Payment Method</label>
                         <select class="form-control" id="paymentMode" formControlName="payment_mode">
                             <option value="" [selected]="true" [hidden]="true">Select Payment Mode</option>
@@ -113,17 +152,19 @@
                             <option value="netbanking">Net Banking</option>
                             <option value="cash">Cash on Arrival</option>
                         </select>
+                        <div *ngIf="isFieldInvalid('payment_mode')" class="text-danger">Please select a payment mode.
+                        </div>
                     </div>
 
-
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-danger" [disabled]="!isLoggedIn"
+                    <button type="submit" class="btn btn-danger" [disabled]="guestLogindata.invalid || !isLoggedIn"
                         (click)="createReservation()">Create Reservation</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <!--Login With Modal---->

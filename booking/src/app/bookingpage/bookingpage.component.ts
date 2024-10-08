@@ -14,6 +14,9 @@ export class BookingpageComponent {
   selectedAdults: any = '';
   selectedChildren: any = '';
   numDays: any;
+  successAlert: boolean = false;
+  offAlert: boolean = false;
+  responsemsg: any;
   myobj: any = {};
   myavlpropertydata: any = [];
 
@@ -62,6 +65,14 @@ export class BookingpageComponent {
     this.service.searchHotelData(this.myobj, (response: any) => {
       if (response.status == 200 && response.data.length > 0) {
         this.myavlpropertydata = response.data;
+        this.successAlert = true;
+        this.responsemsg = response.message;
+        this.autoDismissAlert();
+      }
+      else {
+        this.offAlert = true;
+        this.responsemsg = response.message;
+        this.autoDismissAlert();
 
       }
       console.log(this.myavlpropertydata);
@@ -71,5 +82,13 @@ export class BookingpageComponent {
 
     })
   }
+
+  autoDismissAlert() {
+    setTimeout(() => {
+      this.successAlert = false;
+      this.offAlert = false;
+    }, 3000); // 3000 ms = 3 seconds
+  }
+
 
 }

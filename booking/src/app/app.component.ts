@@ -15,7 +15,7 @@ export class AppComponent {
   ngOnInit() {
     this.pathname = window.location.pathname;
 
-    if (this.pathname == "/adminlogin" || this.pathname == "/booking") {
+    if (this.pathname == "/adminlogin" || this.pathname == "/booking" || this.pathname == "/adminnavbar" || this.pathname == "/managehotel" || this.pathname == "/reservationdetail" || this.pathname == "/hotellogin" || this.pathname == "/hotelnavbar" || this.pathname == "/managerooms") {
       this.show = false;
     } else {
       this.show = true;

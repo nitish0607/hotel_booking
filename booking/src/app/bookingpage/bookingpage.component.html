@@ -145,8 +145,8 @@
             <div class="row bg-white border rounded p-3 shadow-sm mb-4" *ngFor="let hotel of myavlpropertydata">
                 <!-- Image Section -->
                 <div class="col-md-4">
-                    <img src="https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="img-fluid rounded" alt="Hotel Image" style="max-height: 180px; object-fit: cover;">
+                    <img [src]="'http://localhost:3000'+ hotel.image" class="img-fluid rounded" alt="Hotel Image"
+                        style="max-height: 180px; object-fit: cover;">
                 </div>
                 <!-- Details Section -->
                 <div class="col-md-5 d-flex flex-column justify-content-between">
@@ -169,6 +169,24 @@
     </div>
 </div>
 
+
+<!--- Success Alert -->
+
+
+<div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show position-fixed small-alert"
+    role="alert" id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050;">
+    <strong>Success!</strong> {{this.responsemsg}}
+</div>
+
+
+
+<!--- Red Alert -->
+
+
+<div *ngIf="offAlert" class="alert alert-dismissible fade show position-fixed small-alert" role="alert"
+    id="autoDismissAlert" style="top: 20px; right: 20px; z-index: 1050; background-color: red; color: white;">
+    <strong>Alert!</strong> {{this.responsemsg}}
+</div>
 
 
 

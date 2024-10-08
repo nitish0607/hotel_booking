@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Reservation Details</h2>
+
+    <!-- Start of Reservation Cards -->
+    <div class="row">
+        <!-- Card for each reservation -->
+        <div class="col-md-4 mb-4" *ngFor="let reservation of reservations">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Booking ID -->
+                    <h5 class="card-title text-primary">Booking ID: {{ reservation.booking_id }}</h5>
+
+                    <!-- Reservation details -->
+                    <p class="card-text">
+                        <strong>Check-In:</strong> {{ reservation.check_in }}<br>
+                        <strong>Check-Out:</strong> {{ reservation.check_out }}<br>
+                        <strong>Number of Adults:</strong> {{ reservation.number_of_adults }}<br>
+                        <strong>Number of Children:</strong> {{ reservation.number_of_children }}<br>
+                        <strong>Price:</strong> ${{ reservation.price }}<br>
+                        <strong>Hotel Name:</strong> {{ reservation.hotel_name }}<br>
+                        <strong>Room Name:</strong> {{ reservation.room_name }}<br>
+                        <strong>Status:</strong>
+                        <span
+                            [ngClass]="{'badge bg-success': reservation.status === 'Confirmed', 'badge bg-danger': reservation.status === 'Cancelled'}">
+                            {{ reservation.status }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,12 @@ import { ViewRoomModule } from './view-room/view-room.module';
 import { BookingModule } from './admin/booking/booking.module';
 import { AdminloginModule } from './admin/adminlogin/adminlogin.module';
 import { ThankyouModule } from './thankyou/thankyou.module';
+import { HotelloginModule } from './hotellogin/hotellogin.module';
+import { AdminnavbarModule } from './adminnavbar/adminnavbar.module';
+import { ManagehotelModule } from './managehotel/managehotel.module';
+import { ReservationdetailModule } from './reservationdetail/reservationdetail.module';
+import { HotelnavbarModule } from './hotelnavbar/hotelnavbar.module';
+import { ManageroomsModule } from './managerooms/managerooms.module';
 
 
 
@@ -27,7 +33,13 @@ import { ThankyouModule } from './thankyou/thankyou.module';
     ViewRoomModule,
     BookingModule,
     AdminloginModule,
-    ThankyouModule
+    ThankyouModule,
+    HotelloginModule,
+    AdminnavbarModule,
+    ManagehotelModule,
+    ReservationdetailModule,
+    HotelnavbarModule,
+    ManageroomsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
